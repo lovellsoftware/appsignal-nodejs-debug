@@ -13,11 +13,11 @@ const data_1 = require("./internal/data");
  */
 class Metrics {
     constructor() {
-        console.info('App Signal metrics probe being set');
+        console.log('App Signal metrics probe being set');
         _Metrics_probes.set(this, void 0);
         const enableMinutelyProbes = global.__APPSIGNAL__.config.data.enableMinutelyProbes;
         tslib_1.__classPrivateFieldSet(this, _Metrics_probes, new probes_1.Probes({ run: enableMinutelyProbes }), "f");
-        console.info('App Signal minutelyProbes enabled:', enableMinutelyProbes);
+        console.log('App Signal minutelyProbes enabled:', enableMinutelyProbes);
     }
     /**
      * A gauge is a metric value at a specific time. If you set more
@@ -80,7 +80,7 @@ class Metrics {
      * every minute.
      */
     probes() {
-        console.info('We have a metrics probe');
+        console.log('We have a metrics probe');
         return tslib_1.__classPrivateFieldGet(this, _Metrics_probes, "f");
     }
 }

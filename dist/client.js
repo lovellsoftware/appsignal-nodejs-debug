@@ -114,13 +114,13 @@ class Client {
                 tslib_1.__classPrivateFieldSet(this, _Client_metrics, new noops_1.NoopMetrics(), "f");
             }
             else {
-                console.info('Starting AppSignal Client');
+                console.log('Starting AppSignal Client');
                 this.start();
-                console.info('AppSignal Client Started');
+                console.log('AppSignal Client Started');
                 tslib_1.__classPrivateFieldSet(this, _Client_metrics, new metrics_1.Metrics(), "f");
-                console.info('AppSignal Metrics instrumentation started');
+                console.log('AppSignal Metrics instrumentation started');
                 tslib_1.__classPrivateFieldSet(this, _Client_sdk, this.initOpenTelemetry(options.additionalInstrumentations || []), "f");
-                console.info('AppSignal openTelemetry started');
+                console.log('AppSignal openTelemetry started');
             }
         }
         else {
@@ -197,7 +197,7 @@ class Client {
      * to easily spot the differences between contexts.
      */
     metrics() {
-        console.info('Getting metrics:', _Client_metrics);
+        console.log('Getting metrics:', _Client_metrics);
         return tslib_1.__classPrivateFieldGet(this, _Client_metrics, "f");
     }
     logger(group, level = "info", format = "plaintext") {
@@ -212,11 +212,11 @@ class Client {
      * Initialises all the available probes to attach automatically at runtime.
      */
     initCoreProbes() {
-        console.info('Enabling probes');
+        console.log('Enabling probes');
         const probes = [gcProbe];
         // load probes
         probes.forEach(({ PROBE_NAME, init }) => tslib_1.__classPrivateFieldGet(this, _Client_metrics, "f").probes().register(PROBE_NAME, init(tslib_1.__classPrivateFieldGet(this, _Client_metrics, "f"))));
-        console.info('Probes enabled', probes);
+        console.log('Probes enabled', probes);
     }
     defaultInstrumentationsConfig() {
         const sendParams = this.config.data.sendParams;
@@ -225,9 +225,9 @@ class Client {
         return {
             "@opentelemetry/instrumentation-express": {
                 requestHook: function (_span, info) {
-                    console.info('Checking for AppSignal Express Type');
+                    console.log('Checking for AppSignal Express Type');
                     if (info.layerType === instrumentation_express_1.ExpressLayerType.REQUEST_HANDLER) {
-                        console.info('AppSignal Express iinstrumentation enabled');
+                        console.log('AppSignal Express iinstrumentation enabled');
                         if (sendParams) {
                             const queryParams = info.request.query;
                             const requestBody = info.request.body;
@@ -287,12 +287,12 @@ class Client {
     }
     defaultInstrumentations() {
         const disabledInstrumentations = this.config.data.disableDefaultInstrumentations;
-        console.info('Are instrumentations Disabled?', disabledInstrumentations);
+        console.log('Are instrumentations Disabled?', disabledInstrumentations);
         if (disabledInstrumentations === true) {
             return [];
         }
         const instrumentationConfigs = this.defaultInstrumentationsConfig();
-        console.info('AppSignal Instrumentation config', instrumentationConfigs);
+        console.log('AppSignal Instrumentation config', instrumentationConfigs);
         return Object.entries(DefaultInstrumentations)
             .filter(([name, _constructor]) => !(disabledInstrumentations || []).includes(name))
             .map(([name, constructor]) => new constructor(instrumentationConfigs[name] || {}));
