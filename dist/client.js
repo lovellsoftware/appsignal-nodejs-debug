@@ -112,7 +112,6 @@ class Client {
         _Client_sdk.set(this, void 0);
         this.config = new config_1.Configuration(options);
         console.log('Client config is set');
-        console.log('-------------', this.config);
         this.extension = new extension_1.Extension();
         console.log('extension is set');
         this.integrationLogger = this.setUpIntegrationLogger();
@@ -209,7 +208,6 @@ class Client {
      * to easily spot the differences between contexts.
      */
     metrics() {
-        console.log('Getting metrics:', _Client_metrics);
         return tslib_1.__classPrivateFieldGet(this, _Client_metrics, "f");
     }
     logger(group, level = "info", format = "plaintext") {
@@ -299,12 +297,12 @@ class Client {
     }
     defaultInstrumentations() {
         const disabledInstrumentations = this.config.data.disableDefaultInstrumentations;
-        console.log('Are instrumentations Disabled?', disabledInstrumentations);
+        console.log('Are instrumentations Disabled?');
         if (disabledInstrumentations === true) {
             return [];
         }
         const instrumentationConfigs = this.defaultInstrumentationsConfig();
-        console.log('AppSignal Instrumentation config', instrumentationConfigs);
+        console.log('AppSignal Instrumentation config');
         return Object.entries(DefaultInstrumentations)
             .filter(([name, _constructor]) => !(disabledInstrumentations || []).includes(name))
             .map(([name, constructor]) => new constructor(instrumentationConfigs[name] || {}));
