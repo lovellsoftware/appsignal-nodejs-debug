@@ -117,7 +117,7 @@ class Client {
         console.log('extension is set');
         this.integrationLogger = this.setUpIntegrationLogger();
         console.log('integration logger is set');
-        console.oog('------------------------isActive:', isActive);
+        console.log('------------------------isActive:', this.isActive);
         this.storeInGlobal();
         if (this.isActive) {
             if (process.env._APPSIGNAL_DIAGNOSE === "true") {
