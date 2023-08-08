@@ -9,11 +9,12 @@ exports.PROBE_NAME = "v8_stats";
 function init(meter) {
     console.log('----------------Init is called on v8');
     setInterval(() => {
+        console.log('-----------------Firing Heap Collection');
         const { total_heap_size, total_heap_size_executable, total_physical_size, used_heap_size, malloced_memory, number_of_native_contexts, number_of_detached_contexts } = v8_1.default.getHeapStatistics();
-        console.log({
+        console.log('*************', {
             total_heap_size, total_heap_size_executable, total_physical_size, used_heap_size, malloced_memory, number_of_native_contexts, number_of_detached_contexts
         });
-    }, 60000);
+    }, 30000);
     function setGauge(key, value) {
         const hostname = client_1.Client.config.data.hostname || os_1.default.hostname();
         console.log('-------------------', { key, value, hostname });

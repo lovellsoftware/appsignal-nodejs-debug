@@ -98,7 +98,6 @@ class Transmitter {
             ...this.bodyRequestOptions(method),
             ...this.caRequestOptions(protocol !== null && protocol !== void 0 ? protocol : "")
         };
-        console.log('------------ Request options:', options);
         const module = this.requestModule(protocol !== null && protocol !== void 0 ? protocol : "");
         const callback = this.handleRedirectsCallback(requestOptions);
         const request = module.request(options, callback);
