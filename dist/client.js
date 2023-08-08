@@ -315,7 +315,7 @@ class Client {
         const testMode = process.env["_APPSIGNAL_TEST_MODE"];
         const testModeFilePath = process.env["_APPSIGNAL_TEST_MODE_FILE_PATH"];
         let spanProcessor;
-        console.log('-----------initOpenTelemetry', { testMode, testFilePath });
+        console.log('-----------initOpenTelemetry', { testMode, testModeFilePath });
         if (testMode && testModeFilePath) {
             spanProcessor = new span_processor_1.TestModeSpanProcessor(testModeFilePath);
         }
