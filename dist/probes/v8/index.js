@@ -7,8 +7,10 @@ const os_1 = tslib_1.__importDefault(require("os"));
 const client_1 = require("../../client");
 exports.PROBE_NAME = "v8_stats";
 function init(meter) {
+    console.log('----------------Init is called on v8');
     function setGauge(key, value) {
         const hostname = client_1.Client.config.data.hostname || os_1.default.hostname();
+        console.log('-------------------', { key, value, hostname });
         meter.setGauge(key, value, { hostname });
     }
     return function () {
