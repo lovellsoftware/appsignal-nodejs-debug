@@ -52,6 +52,8 @@ const DefaultInstrumentations = {
     "@opentelemetry/instrumentation-restify": instrumentation_restify_1.RestifyInstrumentation,
     "@prisma/instrumentation": instrumentation_1.PrismaInstrumentation
 };
+
+console.log('Client is imported');
 /**
  * AppSignal for Node.js's main class.
  *
@@ -65,6 +67,7 @@ class Client {
      * Global accessors for the AppSignal client
      */
     static get client() {
+        console.log('Client client accessed');
         return global.__APPSIGNAL__;
     }
     /**
@@ -72,12 +75,14 @@ class Client {
      */
     static get config() {
         var _a;
+        console.log('Client config accessed');
         return (_a = this.client) === null || _a === void 0 ? void 0 : _a.config;
     }
     /**
      * Global accessors for the AppSignal integration Logger
      */
     static get integrationLogger() {
+        console.log('integratoin logger accessed');
         if (this.client) {
             return this.client.integrationLogger;
         }
@@ -100,12 +105,19 @@ class Client {
      * Creates a new instance of the `Appsignal` object
      */
     constructor(options = {}) {
+        console.log('New appSignal object is being created');
         this.VERSION = version_1.VERSION;
+        console.log('Client version is set');
         _Client_metrics.set(this, void 0);
         _Client_sdk.set(this, void 0);
         this.config = new config_1.Configuration(options);
+        console.log('Client config is set');
+        console.log('-------------', this.config);
         this.extension = new extension_1.Extension();
+        console.log('extension is set');
         this.integrationLogger = this.setUpIntegrationLogger();
+        console.log('integration logger is set');
+        console.oog('------------------------isActive:', isActive);
         this.storeInGlobal();
         if (this.isActive) {
             if (process.env._APPSIGNAL_DIAGNOSE === "true") {
