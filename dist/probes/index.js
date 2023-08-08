@@ -16,26 +16,31 @@ class Probes {
             this.stop();
     }
     stop() {
+        console.log('---------------Probe stopped');
         tslib_1.__classPrivateFieldGet(this, _Probes_probes, "f").clear();
         tslib_1.__classPrivateFieldSet(this, _Probes_probes, new NoopProbeRunner(), "f");
         tslib_1.__classPrivateFieldSet(this, _Probes_running, false, "f");
         return this;
     }
     get isRunning() {
+        console.log('---------------Probe isRunning');
         return tslib_1.__classPrivateFieldGet(this, _Probes_running, "f");
     }
     get count() {
         return tslib_1.__classPrivateFieldGet(this, _Probes_probes, "f").count;
     }
     register(name, fn) {
+        console.log('---------------Probe registered', { name });
         tslib_1.__classPrivateFieldGet(this, _Probes_probes, "f").register(name, fn);
         return this;
     }
     unregister(name) {
+        console.log('---------------Probe unregistered', { name });
         tslib_1.__classPrivateFieldGet(this, _Probes_probes, "f").unregister(name);
         return this;
     }
     clear() {
+        console.log('---------------Probe cleared');
         tslib_1.__classPrivateFieldGet(this, _Probes_probes, "f").clear();
         return this;
     }
@@ -61,6 +66,7 @@ class BaseProbeRunner extends events_1.EventEmitter {
         tslib_1.__classPrivateFieldGet(this, _BaseProbeRunner_timers, "f").set(name, setInterval(() => this.emit(name), 60 * 1000));
         this.removeAllListeners(name);
         this.on(name, fn);
+        console.log('Probe registered', { name, fn});
     }
     unregister(name) {
         const timer = tslib_1.__classPrivateFieldGet(this, _BaseProbeRunner_timers, "f").get(name);
@@ -69,6 +75,7 @@ class BaseProbeRunner extends events_1.EventEmitter {
             tslib_1.__classPrivateFieldGet(this, _BaseProbeRunner_timers, "f").delete(name);
             this.removeAllListeners(name);
         }
+        console.log('Probe unregistered', { name });
     }
     /**
      * Unregisters all probes and clears the timers.

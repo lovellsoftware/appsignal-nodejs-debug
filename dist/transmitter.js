@@ -23,6 +23,7 @@ class MaxRedirectsError extends Error {
 }
 class Transmitter {
     constructor(url, body = "") {
+        console.log('---------New Transmitter', { url, body });
         _Transmitter_config.set(this, void 0);
         _Transmitter_url.set(this, void 0);
         _Transmitter_body.set(this, void 0);
@@ -52,6 +53,7 @@ class Transmitter {
     }
     async transmit() {
         return new Promise((resolve, reject) => {
+            console.log('------------- New transmit:', { error });
             this.request({
                 method: "POST",
                 params: this.configParams(),
@@ -76,12 +78,14 @@ class Transmitter {
                     });
                 },
                 onError(error) {
+                    console.log('------------- Transmit error:', { error });
                     reject({ error: error });
                 }
             });
         });
     }
     request(requestOptions) {
+        console.log('------------- New Request');
         const { method, params = new url_1.URLSearchParams(), onError } = requestOptions;
         const initialOptions = {
             method,
@@ -94,6 +98,7 @@ class Transmitter {
             ...this.bodyRequestOptions(method),
             ...this.caRequestOptions(protocol !== null && protocol !== void 0 ? protocol : "")
         };
+        console.log('------------ Request options:', options);
         const module = this.requestModule(protocol !== null && protocol !== void 0 ? protocol : "");
         const callback = this.handleRedirectsCallback(requestOptions);
         const request = module.request(options, callback);

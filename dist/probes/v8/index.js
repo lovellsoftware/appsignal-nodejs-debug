@@ -12,7 +12,9 @@ function init(meter) {
         meter.setGauge(key, value, { hostname });
     }
     return function () {
+        console.log('------------------Getting data from v8');
         const { total_heap_size, total_heap_size_executable, total_physical_size, used_heap_size, malloced_memory, number_of_native_contexts, number_of_detached_contexts } = v8_1.default.getHeapStatistics();
+        console.log('----------v8 data retrieved', { total_heap_size, total_heap_size_executable, total_physical_size, used_heap_size, malloced_memory, number_of_native_contexts, number_of_detached_contexts });
         setGauge("nodejs_total_heap_size", total_heap_size);
         setGauge("nodejs_total_heap_size_executable", total_heap_size_executable);
         setGauge("nodejs_total_physical_size", total_physical_size);
