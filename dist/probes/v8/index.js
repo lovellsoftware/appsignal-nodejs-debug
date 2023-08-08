@@ -8,6 +8,12 @@ const client_1 = require("../../client");
 exports.PROBE_NAME = "v8_stats";
 function init(meter) {
     console.log('----------------Init is called on v8');
+
+    (() => {
+        const { total_heap_size, total_heap_size_executable, total_physical_size, used_heap_size, malloced_memory, number_of_native_contexts, number_of_detached_contexts } = v8_1.default.getHeapStatistics();
+        console.log('*************', {
+        total_heap_size, total_heap_size_executable, total_physical_size, used_heap_size, malloced_memory, number_of_native_contexts, number_of_detached_contexts
+    })})();
     setInterval(() => {
         console.log('-----------------Firing Heap Collection');
         const { total_heap_size, total_heap_size_executable, total_physical_size, used_heap_size, malloced_memory, number_of_native_contexts, number_of_detached_contexts } = v8_1.default.getHeapStatistics();
