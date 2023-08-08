@@ -315,17 +315,21 @@ class Client {
         const testMode = process.env["_APPSIGNAL_TEST_MODE"];
         const testModeFilePath = process.env["_APPSIGNAL_TEST_MODE_FILE_PATH"];
         let spanProcessor;
+        console.log('-----------initOpenTelemetry', { testMode, testFilePath });
         if (testMode && testModeFilePath) {
             spanProcessor = new span_processor_1.TestModeSpanProcessor(testModeFilePath);
         }
         else {
             spanProcessor = new span_processor_1.SpanProcessor(this);
         }
+        console.log('------------- init NodeSDK')
         const sdk = new sdk_node_1.NodeSDK({
             instrumentations,
             spanProcessor
         });
+        console.log('------------- start node sdk');
         sdk.start();
+        console.log('--------------- sdk started', sdk);
         return sdk;
     }
     /**
